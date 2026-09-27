@@ -5,6 +5,8 @@ int[] selectedColours = new int[4];
 int[,] guessedColours = new int[12, 4];
 int currentRound = 0;
 Random rand = new Random();
+int[] correctColours = new int[12];
+int[] colourExistElseWhere = new int[12];
 
 for (int i = 0; i < 4; i++)
 {
@@ -21,17 +23,38 @@ System.Console.WriteLine("");
 
 PlayRound();
 CheckResult();
+System.Console.WriteLine($"Antal rätt: {correctColours[currentRound - 1]}");
+System.Console.WriteLine($"Runda: {currentRound}");
+System.Console.WriteLine($"Antal färger på fel plats: {colourExistElseWhere[currentRound-1]}");
 
 void CheckResult()
 {
-    int correctColours = 0;
-    for (int CC = 0; CC < 4 ; CC++)
+    List<int> selectedColoursList = new List<int>();
+    selectedColoursList.Add(selectedColours[0]);
+    selectedColoursList.Add(selectedColours[1]);
+    selectedColoursList.Add(selectedColours[2]);
+    selectedColoursList.Add(selectedColours[3]);
+    for (int CC = 0; CC < 4; CC++)
     {
         if (guessedColours[currentRound, CC] == selectedColours[CC])
         {
-            correctColours++;
+            correctColours[currentRound]++;
+            selectedColoursList.Remove(guessedColours[currentRound, CC]);
         }
     }
+    for (int CE = 0; CE < 4; CE++)
+    {
+        if (guessedColours[currentRound, CE] == selectedColours[CE])
+        {
+            continue;
+        }
+        else if (selectedColoursList.Contains(guessedColours[currentRound, CE]))
+        {
+            colourExistElseWhere[currentRound]++;
+            selectedColoursList.Remove(guessedColours[currentRound, CE]);
+        }
+    }
+    currentRound++;
 }
 
 void PlayRound()
@@ -75,9 +98,8 @@ void PlayRound()
         }
     }
 
-    
+
 
 
 }
 System.Console.WriteLine("");
-System.Console.WriteLine(currentRound);
