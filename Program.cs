@@ -20,8 +20,19 @@ System.Console.WriteLine("");
 
 
 PlayRound();
+CheckResult();
 
-
+void CheckResult()
+{
+    int correctColours = 0;
+    for (int CC = 0; CC < 4 ; CC++)
+    {
+        if (guessedColours[currentRound, CC] == selectedColours[CC])
+        {
+            correctColours++;
+        }
+    }
+}
 
 void PlayRound()
 {
@@ -64,7 +75,7 @@ void PlayRound()
         }
     }
 
-    currentRound++;
+    
 
 
 }
