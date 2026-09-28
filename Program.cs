@@ -10,6 +10,8 @@ int[] colourExistElseWhere = new int[12];
 bool playing = true;
 int playerScore;
 int aiScore;
+bool playersTurn = true;
+string[] currentPlayer = { "player", "AI" };
 
 for (int i = 0; i < 4; i++)
 {
@@ -25,33 +27,45 @@ System.Console.WriteLine("");
 
 while (playing)
 {
-    PlayRound();
-    CheckResult();
-    DisplayPreviousRounds();
-    if (correctColours[currentRound] == 4)
+    while (playersTurn == true)
     {
-        System.Console.WriteLine($"CONGRATULATIONS. YOU SOLVED THE PUZZLE IN {currentRound + 1} ROUNDS!!");
-        playerScore = currentRound;
-        System.Console.WriteLine("Press any key to continue...");
-        Console.ReadKey();
-        playing = false;
-        continue;
+        PlayRound();
+        CheckResult();
+        DisplayPreviousRounds();
+        if (correctColours[currentRound] == 4)
+        {
+            System.Console.WriteLine($"CONGRATULATIONS. YOU SOLVED THE PUZZLE IN {currentRound + 1} ROUNDS!!");
+            playerScore = currentRound + 1;
+            System.Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            playersTurn = false;
+            continue;
+        }
+        if (currentRound == 11)
+        {
+            System.Console.WriteLine($"YOU FAILED! CORRECT COLOURS ARE:");
+            System.Console.WriteLine($"{colours[selectedColours[0]]}\t{colours[selectedColours[1]]}\t{colours[selectedColours[2]]}\t{colours[selectedColours[3]]}");
+            playerScore = 13;
+            System.Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+            playersTurn = false;
+            continue;
+        }
+        currentRound++;
+
     }
-    if (currentRound == 11)
+    while (playersTurn == false)
     {
-        System.Console.WriteLine($"YOU FAILED! CORRECT COLOURS ARE:");
-        System.Console.WriteLine($"{colours[selectedColours[0]]}\t{colours[selectedColours[1]]}\t{colours[selectedColours[2]]}\t{colours[selectedColours[3]]}");
-        playerScore = 13;
-        System.Console.WriteLine("Press any key to continue...");
-        Console.ReadKey();
-        playing = false;
-        continue;
+        AiRound();
+        CheckResult();
+        DisplayPreviousRounds();
     }
-    currentRound++;
 }
 
+void AiRound()
+{
 
-
+}
 
 void DisplayPreviousRounds()
 {
@@ -61,8 +75,8 @@ void DisplayPreviousRounds()
     for (int i = 0; i <= currentRound; i++)
     {
         System.Console.WriteLine($"Round {i + 1} guesses:");
-        System.Console.WriteLine($"{colours[guessedColours[currentRound, 0]]}\t{colours[guessedColours[currentRound, 1]]}\t{colours[guessedColours[currentRound, 2]]}\t{colours[guessedColours[currentRound, 3]]}");
-        System.Console.WriteLine($"CP: {correctColours[currentRound]} \nCE: {colourExistElseWhere[currentRound]}");
+        System.Console.WriteLine($"{colours[guessedColours[i, 0]]}\t{colours[guessedColours[i, 1]]}\t{colours[guessedColours[i, 2]]}\t{colours[guessedColours[i, 3]]}");
+        System.Console.WriteLine($"CP: {correctColours[i]} \nCE: {colourExistElseWhere[i]}");
         System.Console.WriteLine("");
     }
 }
