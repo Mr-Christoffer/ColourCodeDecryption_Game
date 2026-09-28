@@ -20,12 +20,24 @@ System.Console.WriteLine(colours[selectedColours[2]]);
 System.Console.WriteLine(colours[selectedColours[3]]);
 System.Console.WriteLine("");
 
-
 PlayRound();
 CheckResult();
+DisplayPreviousRounds();
+
 System.Console.WriteLine($"Antal rätt: {correctColours[currentRound - 1]}");
 System.Console.WriteLine($"Runda: {currentRound}");
-System.Console.WriteLine($"Antal färger på fel plats: {colourExistElseWhere[currentRound-1]}");
+System.Console.WriteLine($"Antal färger på fel plats: {colourExistElseWhere[currentRound - 1]}");
+
+void DisplayPreviousRounds()
+{
+    for (int i = 0; i <= currentRound; i++)
+    {
+        System.Console.WriteLine($"På {slotNames[i]} gissade du följande:");
+        System.Console.WriteLine($"{colours[guessedColours[currentRound, 0]]}\t{colours[guessedColours[currentRound, 1]]}\t{colours[guessedColours[currentRound, 2]]}\t{colours[guessedColours[currentRound, 3]]}");
+    }
+    currentRound++;
+
+}
 
 void CheckResult()
 {
@@ -54,7 +66,7 @@ void CheckResult()
             selectedColoursList.Remove(guessedColours[currentRound, CE]);
         }
     }
-    currentRound++;
+
 }
 
 void PlayRound()
