@@ -8,6 +8,8 @@ Random rand = new Random();
 int[] correctColours = new int[12];
 int[] colourExistElseWhere = new int[12];
 bool playing = true;
+int playerScore;
+int aiScore;
 
 for (int i = 0; i < 4; i++)
 {
@@ -28,18 +30,22 @@ while (playing)
     DisplayPreviousRounds();
     if (correctColours[currentRound] == 4)
     {
-        System.Console.WriteLine($"CONGRATULATIONS. YOU WON THE GAME IN {currentRound + 1} ROUNDS!!");
+        System.Console.WriteLine($"CONGRATULATIONS. YOU SOLVED THE PUZZLE IN {currentRound + 1} ROUNDS!!");
+        playerScore = currentRound;
         System.Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
         playing = false;
         continue;
     }
-    if (currentRound == 12)
+    if (currentRound == 11)
     {
-        System.Console.WriteLine($"YOU LOST THE GAME! CORRECT COLOURS ARE:");
-        System.Console.WriteLine($"{selectedColours[0]}\t{selectedColours[1]}\t{selectedColours[2]}\t{selectedColours[3]}");
+        System.Console.WriteLine($"YOU FAILED! CORRECT COLOURS ARE:");
+        System.Console.WriteLine($"{colours[selectedColours[0]]}\t{colours[selectedColours[1]]}\t{colours[selectedColours[2]]}\t{colours[selectedColours[3]]}");
+        playerScore = 13;
         System.Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
+        playing = false;
+        continue;
     }
     currentRound++;
 }
