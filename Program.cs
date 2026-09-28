@@ -26,21 +26,31 @@ while (playing)
     PlayRound();
     CheckResult();
     DisplayPreviousRounds();
+    if (correctColours[currentRound] == 4)
+    {
+        System.Console.WriteLine($"CONGRATULATIONS. YOU WON THE GAME IN {currentRound + 1} ROUNDS!!");
+        playing = false;
+        continue;
+    }
+    currentRound++;
 }
 
 
-System.Console.WriteLine($"Antal rätt: {correctColours[currentRound - 1]}");
-System.Console.WriteLine($"Runda: {currentRound}");
-System.Console.WriteLine($"Antal färger på fel plats: {colourExistElseWhere[currentRound - 1]}");
+
 
 void DisplayPreviousRounds()
 {
+    Console.Clear();
+    System.Console.WriteLine("Previous guesses: (CP = Correct colour and position, CE = Colur exists on other postion)");
+    System.Console.WriteLine("");
     for (int i = 0; i <= currentRound; i++)
     {
-        System.Console.WriteLine($"På {slotNames[i]} gissade du följande:");
+        System.Console.WriteLine($"Round {i + 1} guesses:");
         System.Console.WriteLine($"{colours[guessedColours[currentRound, 0]]}\t{colours[guessedColours[currentRound, 1]]}\t{colours[guessedColours[currentRound, 2]]}\t{colours[guessedColours[currentRound, 3]]}");
+        System.Console.WriteLine($"CP: {correctColours[currentRound]} \nCE: {colourExistElseWhere[currentRound]}");
+        System.Console.WriteLine("");
     }
-    currentRound++;
+
 
 }
 
