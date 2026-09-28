@@ -1,6 +1,6 @@
 ﻿// [0]=red, [1]=green, [2]=blue, [3]=purple, [4]=yellow, [5]=black
 string[] colours = { "red", "green", "blue", "purple", "yellow", "black" };
-string[] slotNames = { "första", "andra", "tredje", "fjärde" };
+string[] slotNames = { "first", "second", "third", "fourth" };
 int[] selectedColours = new int[4];
 int[,] guessedColours = new int[12, 4];
 int currentRound = 0;
@@ -29,8 +29,17 @@ while (playing)
     if (correctColours[currentRound] == 4)
     {
         System.Console.WriteLine($"CONGRATULATIONS. YOU WON THE GAME IN {currentRound + 1} ROUNDS!!");
+        System.Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
         playing = false;
         continue;
+    }
+    if (currentRound == 12)
+    {
+        System.Console.WriteLine($"YOU LOST THE GAME! CORRECT COLOURS ARE:");
+        System.Console.WriteLine($"{selectedColours[0]}\t{selectedColours[1]}\t{selectedColours[2]}\t{selectedColours[3]}");
+        System.Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
     currentRound++;
 }
@@ -50,8 +59,6 @@ void DisplayPreviousRounds()
         System.Console.WriteLine($"CP: {correctColours[currentRound]} \nCE: {colourExistElseWhere[currentRound]}");
         System.Console.WriteLine("");
     }
-
-
 }
 
 void CheckResult()
@@ -81,7 +88,6 @@ void CheckResult()
             selectedColoursList.Remove(guessedColours[currentRound, CE]);
         }
     }
-
 }
 
 void PlayRound()
@@ -93,7 +99,7 @@ void PlayRound()
         bool validAnswer = false;
         while (validAnswer == false)
         {
-            System.Console.WriteLine($"Välj den {slotNames[s]} färgen:");
+            System.Console.WriteLine($"Choose the {slotNames[s]} colour:");
             char choice = Console.ReadKey().KeyChar;
             System.Console.WriteLine("");
             if (choice == '1' || choice == '2' || choice == '3' || choice == '4' || choice == '5' || choice == '6')
@@ -124,9 +130,5 @@ void PlayRound()
             continue;
         }
     }
-
-
-
-
 }
-System.Console.WriteLine("");
+
