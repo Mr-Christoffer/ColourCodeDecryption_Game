@@ -7,6 +7,7 @@ int currentRound = 0;
 Random rand = new Random();
 int[] correctColours = new int[12];
 int[] colourExistElseWhere = new int[12];
+bool playing = true;
 
 for (int i = 0; i < 4; i++)
 {
@@ -20,9 +21,13 @@ System.Console.WriteLine(colours[selectedColours[2]]);
 System.Console.WriteLine(colours[selectedColours[3]]);
 System.Console.WriteLine("");
 
-PlayRound();
-CheckResult();
-DisplayPreviousRounds();
+while (playing)
+{
+    PlayRound();
+    CheckResult();
+    DisplayPreviousRounds();
+}
+
 
 System.Console.WriteLine($"Antal rätt: {correctColours[currentRound - 1]}");
 System.Console.WriteLine($"Runda: {currentRound}");
