@@ -12,6 +12,7 @@ int playerScore;
 int aiScore;
 bool playersTurn = true;
 string[] currentPlayer = { "player", "AI" };
+List<int> possibleSolutions = new List<int>();
 
 for (int i = 0; i < 4; i++)
 {
@@ -54,6 +55,8 @@ while (playing)
         currentRound++;
 
     }
+
+    PrepareAiGame();
     while (playersTurn == false)
     {
         AiRound();
@@ -62,10 +65,58 @@ while (playing)
     }
 }
 
+
 void AiRound()
 {
 
 }
+
+void PrepareAiGame()
+{
+    for (int s = 0; s < 4; s++)
+    {
+        System.Console.WriteLine("");
+        bool validAnswer = false;
+        while (validAnswer == false)
+        {
+            System.Console.WriteLine($"Choose the {slotNames[s]} colour:");
+            char choice = Console.ReadKey().KeyChar;
+            System.Console.WriteLine("");
+            if (choice == '1' || choice == '2' || choice == '3' || choice == '4' || choice == '5' || choice == '6')
+            {
+                switch (choice)
+                {
+                    case '1':
+                        selectedColours[s] = 0;
+                        break;
+                    case '2':
+                        selectedColours[s] = 1;
+                        break;
+                    case '3':
+                        selectedColours[s] = 2;
+                        break;
+                    case '4':
+                        selectedColours[s] = 3;
+                        break;
+                    case '5':
+                        selectedColours[s] = 4;
+                        break;
+                    case '6':
+                        selectedColours[s] = 5;
+                        break;
+                }
+                validAnswer = true;
+            }
+            continue;
+        }
+    }
+    // Initialize possible solutions.
+    for (int sol = 0 ; sol < 1296 ; sol++)
+    {
+        possibleSolutions.Add(sol);
+    }
+}
+
 
 void DisplayPreviousRounds()
 {
